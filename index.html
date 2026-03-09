@@ -1,167 +1,555 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Khai Portfolio</title>
-<style>
-body{
-    margin:0;
-    font-family: Arial, Helvetica, sans-serif;
-    background:#0f172a;
-    color:white;
-}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pham Phan Duc Khai — Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <style>
+    /* ───── Reset & Variables ───── */
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    :root {
+      --bg: #0f0f1a;
+      --bg2: #161625;
+      --card: #1c1c2e;
+      --border: #2a2a40;
+      --accent: #6c63ff;
+      --accent2: #00d4aa;
+      --text: #e4e4e7;
+      --text2: #a1a1b5;
+      --white: #ffffff;
+      --radius: 16px;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: var(--accent); text-decoration: none; transition: color .2s; }
+    a:hover { color: var(--accent2); }
 
-header{
-    text-align:center;
-    padding:60px 20px;
-}
+    /* ───── Animated Background ───── */
+    .bg-glow {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      pointer-events: none; z-index: 0;
+      background:
+        radial-gradient(ellipse 600px 400px at 20% 20%, rgba(108,99,255,.12), transparent),
+        radial-gradient(ellipse 500px 500px at 80% 70%, rgba(0,212,170,.08), transparent);
+    }
 
-header h1{
-    font-size:48px;
-    margin-bottom:10px;
-}
+    /* ───── Navbar ───── */
+    nav {
+      position: fixed; top: 0; width: 100%; z-index: 100;
+      background: rgba(15,15,26,.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+    .nav-inner {
+      max-width: 1100px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between;
+      height: 64px;
+    }
+    .nav-logo { font-weight: 800; font-size: 1.25rem; color: var(--white); }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      color: var(--text2); font-size: .9rem; font-weight: 500;
+      transition: color .2s;
+    }
+    .nav-links a:hover { color: var(--white); }
 
-header p{
-    color:#cbd5f5;
-}
+    /* ───── Sections ───── */
+    section { position: relative; z-index: 1; max-width: 1100px; margin: 0 auto; padding: 5rem 2rem; }
+    .section-title {
+      font-size: 2rem; font-weight: 800; margin-bottom: .5rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .section-line { width: 60px; height: 4px; border-radius: 2px; background: var(--accent); margin-bottom: 2.5rem; }
 
-section{
-    max-width:1000px;
-    margin:auto;
-    padding:40px 20px;
-}
+    /* ───── Hero ───── */
+    .hero {
+      min-height: 100vh; display: flex; align-items: center; padding-top: 64px;
+    }
+    .hero-content { max-width: 680px; }
+    .hero-hello {
+      display: inline-block; font-size: .95rem; font-weight: 600;
+      color: var(--accent2); letter-spacing: 2px; text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.15; color: var(--white); margin-bottom: 1.2rem; }
+    .hero h1 .highlight {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    }
+    .hero p { font-size: 1.15rem; color: var(--text2); max-width: 540px; margin-bottom: 2rem; }
+    .hero-buttons { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .75rem 1.75rem; border-radius: 50px; font-weight: 600;
+      font-size: .95rem; border: none; cursor: pointer; transition: all .25s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), #8b5cf6);
+      color: var(--white);
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(108,99,255,.35); }
+    .btn-outline {
+      background: transparent; color: var(--accent);
+      border: 2px solid var(--accent);
+    }
+    .btn-outline:hover { background: var(--accent); color: var(--white); transform: translateY(-2px); }
+    .hero-socials { margin-top: 2rem; display: flex; gap: 1rem; }
+    .hero-socials a {
+      width: 44px; height: 44px; border-radius: 12px;
+      background: var(--card); border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--text2); font-size: 1.1rem; transition: all .2s;
+    }
+    .hero-socials a:hover { color: var(--accent); border-color: var(--accent); transform: translateY(-3px); }
 
-h2{
-    border-bottom:2px solid #334155;
-    padding-bottom:10px;
-}
+    /* ───── About ───── */
+    .about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+    .about-text p { color: var(--text2); margin-bottom: 1rem; }
+    .about-info { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .info-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.25rem; text-align: center;
+    }
+    .info-card i { font-size: 1.5rem; color: var(--accent); margin-bottom: .5rem; }
+    .info-card h4 { font-size: .85rem; color: var(--text2); margin-bottom: .25rem; }
+    .info-card p { font-weight: 600; color: var(--white); font-size: .95rem; }
 
-.skills{
-    display:flex;
-    flex-wrap:wrap;
-    gap:10px;
-}
+    /* ───── Skills ───── */
+    .skills-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; }
+    .skill-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 1.5rem;
+      transition: all .3s;
+    }
+    .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(108,99,255,.1); }
+    .skill-card h3 { font-size: 1rem; color: var(--white); margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem; }
+    .skill-card h3 i { color: var(--accent); }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: .5rem; }
+    .skill-tag {
+      padding: .3rem .75rem; border-radius: 50px; font-size: .8rem; font-weight: 500;
+      background: rgba(108,99,255,.1); color: var(--accent); border: 1px solid rgba(108,99,255,.2);
+    }
 
-.skill{
-    background:#1e293b;
-    padding:10px 16px;
-    border-radius:20px;
-}
+    /* ───── Projects ───── */
+    .projects-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+    .project-card {
+      background: var(--card); border: 1px solid var(--border);
+      border-radius: var(--radius); padding: 2rem; position: relative;
+      transition: all .3s; overflow: hidden;
+    }
+    .project-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      opacity: 0; transition: opacity .3s;
+    }
+    .project-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+    .project-card:hover::before { opacity: 1; }
+    .project-card h3 { font-size: 1.2rem; color: var(--white); margin-bottom: .5rem; }
+    .project-card .project-date { font-size: .8rem; color: var(--accent2); font-weight: 600; margin-bottom: .75rem; }
+    .project-card ul { list-style: none; margin-bottom: 1rem; }
+    .project-card ul li { color: var(--text2); font-size: .9rem; padding: .2rem 0; padding-left: 1.2rem; position: relative; }
+    .project-card ul li::before { content:'▸'; position: absolute; left: 0; color: var(--accent); }
+    .project-tech { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .project-tech span {
+      padding: .2rem .6rem; border-radius: 50px; font-size: .75rem;
+      background: rgba(0,212,170,.1); color: var(--accent2); border: 1px solid rgba(0,212,170,.2);
+    }
 
-.projects{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
+    /* ───── Experience ───── */
+    .timeline { position: relative; padding-left: 2rem; }
+    .timeline::before {
+      content: ''; position: absolute; left: 7px; top: 0; bottom: 0;
+      width: 2px; background: var(--border);
+    }
+    .timeline-item { position: relative; margin-bottom: 2rem; }
+    .timeline-item::before {
+      content: ''; position: absolute; left: -2rem; top: 6px;
+      width: 16px; height: 16px; border-radius: 50%;
+      background: var(--accent); border: 3px solid var(--bg);
+    }
+    .timeline-item h3 { color: var(--white); font-size: 1.05rem; }
+    .timeline-item .role { color: var(--accent2); font-size: .85rem; font-weight: 600; }
+    .timeline-item .date { color: var(--text2); font-size: .8rem; margin-bottom: .4rem; }
+    .timeline-item p { color: var(--text2); font-size: .9rem; }
 
-.card{
-    background:#1e293b;
-    padding:20px;
-    border-radius:12px;
-    transition:0.3s;
-}
+    /* ───── Resume Modal ───── */
+    .modal-overlay {
+      position: fixed; inset: 0; z-index: 1000;
+      background: rgba(0,0,0,.7); backdrop-filter: blur(6px);
+      display: flex; align-items: center; justify-content: center;
+      opacity: 0; pointer-events: none; transition: opacity .3s;
+    }
+    .modal-overlay.active { opacity: 1; pointer-events: all; }
+    .modal {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--radius); width: 90%; max-width: 800px;
+      max-height: 85vh; overflow-y: auto; padding: 2.5rem;
+      transform: translateY(30px); transition: transform .3s;
+      position: relative;
+    }
+    .modal-overlay.active .modal { transform: translateY(0); }
+    .modal-close {
+      position: absolute; top: 1rem; right: 1rem;
+      width: 36px; height: 36px; border-radius: 50%;
+      background: var(--card); border: 1px solid var(--border);
+      color: var(--text2); font-size: 1.1rem;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: all .2s;
+    }
+    .modal-close:hover { color: #ff4757; border-color: #ff4757; }
 
-.card:hover{
-    transform:translateY(-5px);
-    background:#334155;
-}
+    /* Resume inside modal */
+    .resume { color: var(--text); }
+    .resume h2 { font-size: 1.8rem; color: var(--white); text-align: center; margin-bottom: .25rem; }
+    .resume .resume-links { text-align: center; font-size: .85rem; color: var(--text2); margin-bottom: 1.5rem; display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap; }
+    .resume .resume-links a { color: var(--accent); }
+    .resume h3 {
+      font-size: 1.1rem; color: var(--accent); text-transform: uppercase; letter-spacing: 1px;
+      border-bottom: 2px solid var(--border); padding-bottom: .4rem; margin: 1.5rem 0 1rem;
+    }
+    .resume .r-row { display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-bottom: .15rem; }
+    .resume .r-row strong { color: var(--white); }
+    .resume .r-row .r-date { color: var(--text2); font-size: .85rem; }
+    .resume .r-sub { color: var(--text2); font-size: .9rem; font-style: italic; margin-bottom: .5rem; }
+    .resume ul { padding-left: 1.25rem; margin-bottom: .75rem; }
+    .resume ul li { color: var(--text2); font-size: .9rem; margin-bottom: .25rem; }
+    .resume .r-skills { color: var(--text2); font-size: .9rem; margin-bottom: .5rem; }
+    .resume .r-skills strong { color: var(--white); }
+    .resume .r-note { color: var(--accent2); font-weight: 600; font-size: .85rem; }
+    .resume .r-updated { text-align: right; color: var(--text2); font-size: .8rem; margin-bottom: 1rem; }
 
-.card h3{
-    margin-top:0;
-}
+    /* ───── Footer ───── */
+    footer {
+      text-align: center; padding: 2rem; color: var(--text2); font-size: .85rem;
+      border-top: 1px solid var(--border); position: relative; z-index: 1;
+    }
 
-footer{
-    text-align:center;
-    padding:30px;
-    color:#94a3b8;
-}
+    /* ───── Scroll animation ───── */
+    .fade-up { opacity: 0; transform: translateY(30px); transition: all .6s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
 
-button{
-    margin-top:10px;
-    padding:10px 16px;
-    border:none;
-    border-radius:6px;
-    background:#3b82f6;
-    color:white;
-    cursor:pointer;
-}
-
-button:hover{
-    background:#2563eb;
-}
-</style>
+    /* ───── Responsive ───── */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 2.2rem; }
+      .about-grid { grid-template-columns: 1fr; }
+      .projects-grid { grid-template-columns: 1fr; }
+      .nav-links { display: none; }
+      section { padding: 3rem 1.25rem; }
+      .modal { padding: 1.5rem; }
+    }
+  </style>
 </head>
-
 <body>
 
-<header>
-<h1>Pham Khai</h1>
-<p>Computer Vision | React | Node.js Developer</p>
-<p>Software Engineering Student - Saigon University</p>
-</header>
+<div class="bg-glow"></div>
 
-<section>
-<h2>About Me</h2>
-<p>
-I am a software engineering student interested in Artificial Intelligence, Computer Vision and Web Development. 
-Currently building a garbage recognition system using computer vision with a React frontend and Node.js backend.
-</p>
+<!-- ───── Navbar ───── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">&lt;<span>Khai</span>/&gt;</div>
+    <ul class="nav-links">
+      <li><a href="#about">About</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#" onclick="openResume(); return false;">Resume</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- ───── Hero ───── -->
+<section class="hero">
+  <div class="hero-content">
+    <span class="hero-hello">Hello, I'm</span>
+    <h1>Pham Phan Duc <span class="highlight">Khai</span></h1>
+    <p>Computer Science student at Sai Gon University. Passionate about AI, Computer Vision, and Full-Stack Web Development.</p>
+    <div class="hero-buttons">
+      <button class="btn btn-primary" onclick="openResume()">
+        <i class="fas fa-file-alt"></i> View My Resume
+      </button>
+      <a class="btn btn-outline" href="https://github.com/khai-it" target="_blank" rel="noopener noreferrer">
+        <i class="fab fa-github"></i> GitHub
+      </a>
+    </div>
+    <div class="hero-socials">
+      <a href="https://github.com/khai-it" target="_blank" rel="noopener noreferrer" title="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/mattydoe" target="_blank" rel="noopener noreferrer" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      <a href="mailto:mattydoe@gmail.com" title="Email"><i class="fas fa-envelope"></i></a>
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Tech Stack</h2>
-<div class="skills">
-<div class="skill">C++</div>
-<div class="skill">JavaScript</div>
-<div class="skill">Python</div>
-<div class="skill">React</div>
-<div class="skill">Node.js</div>
-<div class="skill">Computer Vision</div>
-<div class="skill">Git</div>
-</div>
+<!-- ───── About ───── -->
+<section id="about">
+  <div class="fade-up">
+    <h2 class="section-title">About Me</h2>
+    <div class="section-line"></div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>I'm a Computer Science student at <strong>Sai Gon University</strong>, expected to graduate in June 2026. I have a passion for building meaningful software solutions and exploring cutting-edge technologies.</p>
+        <p>My interests span across <strong>Artificial Intelligence</strong>, <strong>Computer Vision</strong>, and <strong>Full-Stack Web Development</strong>. I enjoy tackling real-world problems through code — from training deep learning models for waste classification to building modern web applications.</p>
+      </div>
+      <div class="about-info">
+        <div class="info-card">
+          <i class="fas fa-graduation-cap"></i>
+          <h4>University</h4>
+          <p>Sai Gon University</p>
+        </div>
+        <div class="info-card">
+          <i class="fas fa-code"></i>
+          <h4>Degree</h4>
+          <p>B.S. Computer Science</p>
+        </div>
+        <div class="info-card">
+          <i class="fas fa-calendar"></i>
+          <h4>Expected Grad.</h4>
+          <p>June 2026</p>
+        </div>
+        <div class="info-card">
+          <i class="fas fa-project-diagram"></i>
+          <h4>Projects</h4>
+          <p>2+ Projects</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Projects</h2>
-<div class="projects">
-
-<div class="card">
-<h3>Garbage Classification System</h3>
-<p>Computer vision system that detects and classifies garbage images.</p>
-<p>Frontend: React | Backend: Node.js</p>
-<button onclick="window.open('https://github.com/yourusername/project')">GitHub</button>
-</div>
-
-<div class="card">
-<h3>Segment Tree Algorithms</h3>
-<p>Implementation of advanced segment tree with lazy propagation in C++.</p>
-<button onclick="window.open('https://github.com/yourusername/segment-tree')">GitHub</button>
-</div>
-
-<div class="card">
-<h3>FP-Growth Data Mining</h3>
-<p>Frequent pattern mining algorithm implemented in C++.</p>
-<button onclick="window.open('https://github.com/yourusername/fpgrowth')">GitHub</button>
-</div>
-
-</div>
+<!-- ───── Skills ───── -->
+<section id="skills">
+  <div class="fade-up">
+    <h2 class="section-title">Skills</h2>
+    <div class="section-line"></div>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <h3><i class="fas fa-code"></i> Languages</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">C/C++</span>
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">Java</span>
+          <span class="skill-tag">JavaScript</span>
+          <span class="skill-tag">TypeScript</span>
+          <span class="skill-tag">HTML/CSS</span>
+          <span class="skill-tag">LaTeX</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fas fa-layer-group"></i> Frameworks</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">React</span>
+          <span class="skill-tag">Node.js</span>
+          <span class="skill-tag">YOLOv8</span>
+          <span class="skill-tag">OpenCV</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fas fa-tools"></i> Tools</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">Git / GitHub</span>
+          <span class="skill-tag">VS Code</span>
+          <span class="skill-tag">Unix Shell</span>
+          <span class="skill-tag">Webpack</span>
+          <span class="skill-tag">IntelliJ</span>
+        </div>
+      </div>
+      <div class="skill-card">
+        <h3><i class="fas fa-book"></i> Coursework</h3>
+        <div class="skill-tags">
+          <span class="skill-tag">OOP</span>
+          <span class="skill-tag">DSA</span>
+          <span class="skill-tag">Embedded Systems</span>
+          <span class="skill-tag">Discrete Math</span>
+          <span class="skill-tag">Linear Algebra</span>
+          <span class="skill-tag">Probability</span>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
 
-<section>
-<h2>Basic Test Cases (Garbage Recognition)</h2>
-<ul>
-<li>Plastic bottle image → classified as Plastic</li>
-<li>Banana peel image → classified as Organic Waste</li>
-<li>Metal can image → classified as Metal</li>
-<li>Unknown object → return Unknown</li>
-</ul>
+<!-- ───── Projects ───── -->
+<section id="projects">
+  <div class="fade-up">
+    <h2 class="section-title">Projects</h2>
+    <div class="section-line"></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <h3><i class="fas fa-recycle" style="color:var(--accent2);margin-right:.4rem"></i>Trash Recognition</h3>
+        <div class="project-date">2024 — Present</div>
+        <ul>
+          <li>Developed a trash detection &amp; recognition system using the YOLOv8 object detection model</li>
+          <li>Collected and labeled training data to build a custom dataset for waste classification</li>
+          <li>Trained and evaluated the model, achieving reliable detection on images and video streams</li>
+        </ul>
+        <div class="project-tech">
+          <span>Python</span><span>YOLOv8</span><span>OpenCV</span><span>Computer Vision</span><span>Git</span>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <h3><i class="fas fa-bus" style="color:var(--accent);margin-right:.4rem"></i>Smart Bus</h3>
+        <div class="project-date">2024 — Present</div>
+        <ul>
+          <li>Built a full-stack Smart Bus web application for managing and tracking bus routes</li>
+          <li>Developed the frontend using React for a responsive and interactive UI</li>
+          <li>Implemented the backend with Node.js to handle API requests and business logic</li>
+        </ul>
+        <div class="project-tech">
+          <span>React</span><span>Node.js</span><span>JavaScript</span><span>HTML/CSS</span><span>Git</span>
+        </div>
+        <p class="r-note" style="margin-top:.75rem">Note: Frontend — React &bull; Backend — Node.js</p>
+      </div>
+
+    </div>
+  </div>
 </section>
 
+<!-- ───── Experience ───── -->
+<section id="experience">
+  <div class="fade-up">
+    <h2 class="section-title">Experience</h2>
+    <div class="section-line"></div>
+    <div class="timeline">
+      <div class="timeline-item">
+        <h3>Competitive Programming Club</h3>
+        <span class="role">Member</span>
+        <div class="date">Sept. 2023 — Present</div>
+        <p>Involved in the club centered around Competitive Programming.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Apex Tutoring</h3>
+        <span class="role">Tutor</span>
+        <div class="date">2019 — Present</div>
+        <p>Routinely tutor K–12 students in math, coding, etc.</p>
+      </div>
+      <div class="timeline-item">
+        <h3>Luigi Team Charity</h3>
+        <span class="role">Volunteer &amp; Manager</span>
+        <div class="date">2018 — Present</div>
+        <p>Earned an award for philanthropic hours spent, still giving away 100 stocked backpacks a year.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ───── Resume Modal ───── -->
+<div class="modal-overlay" id="resumeModal" onclick="closeResumeOutside(event)">
+  <div class="modal">
+    <button class="modal-close" onclick="closeResume()" title="Close"><i class="fas fa-times"></i></button>
+    <div class="resume">
+      <p class="r-updated">Last Updated on March 9th, 2026</p>
+
+      <h2>Pham Phan Duc Khai</h2>
+      <div class="resume-links">
+        <a href="https://github.com/khai-it" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i> github.com/khai-it</a>
+        <a href="https://linkedin.com/in/mattydoe" target="_blank" rel="noopener noreferrer"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="mailto:mattydoe@gmail.com"><i class="fas fa-envelope"></i> mattydoe@gmail.com</a>
+      </div>
+
+      <!-- Education -->
+      <h3><i class="fas fa-graduation-cap"></i> Education</h3>
+      <div class="r-row"><strong>Sai Gon University</strong><span class="r-date">June 2026</span></div>
+      <p class="r-sub">B.S. Computer Science</p>
+      <div class="r-row"><strong>Little High School <small>(Dual Enrollment at Mission Community College)</small></strong><span class="r-date">June 2022</span></div>
+      <p class="r-sub">GPA: 4.44/4.0</p>
+
+      <p class="r-skills" style="margin-top:.75rem"><strong>Courses:</strong> Object-Oriented Programming, Data Structures &amp; Algorithms, Embedded Systems, Discrete Math, Linear Algebra, Calculus, Physics, Probability &amp; Statistics</p>
+      <p class="r-skills"><strong>Awards:</strong> Dean's Honor List (3x), AP Scholar with Distinction (2x), World Language History Award (Spanish)</p>
+
+      <!-- Skills -->
+      <h3><i class="fas fa-cogs"></i> Skills</h3>
+      <p class="r-skills"><strong>Languages:</strong> C/C++, Python, Java, JavaScript/TypeScript, HTML/CSS, LaTeX</p>
+      <p class="r-skills"><strong>Tools:</strong> Git/GitHub, Unix Shell, Webpack, VS Code, IntelliJ CLion/PyCharm/IDEA, Atom</p>
+
+      <!-- Projects -->
+      <h3><i class="fas fa-project-diagram"></i> Projects</h3>
+
+      <div class="r-row"><strong>Trash Recognition (YOLOv8)</strong><span class="r-date">2024 — Present</span></div>
+      <p class="r-sub">Python, YOLOv8, OpenCV, Computer Vision, Git, VS Code</p>
+      <ul>
+        <li>Developed a trash detection and recognition system using the YOLOv8 object detection model</li>
+        <li>Collected and labeled training data to build a custom dataset for waste classification</li>
+        <li>Trained and evaluated the model, achieving reliable detection on images and video streams</li>
+      </ul>
+
+      <div class="r-row"><strong>Smart Bus</strong><span class="r-date">2024 — Present</span></div>
+      <p class="r-sub">React, Node.js, JavaScript, HTML/CSS, Git, VS Code</p>
+      <ul>
+        <li>Built a full-stack Smart Bus web application for managing and tracking bus routes</li>
+        <li>Developed the frontend using React for a responsive and interactive user interface</li>
+        <li>Implemented the backend with Node.js to handle API requests and business logic</li>
+        <li><span class="r-note">Note: Web application — Frontend: React, Backend: Node.js</span></li>
+      </ul>
+
+      <!-- Experience -->
+      <h3><i class="fas fa-briefcase"></i> Experience</h3>
+
+      <div class="r-row"><strong>Competitive Programming Club</strong> · <em>Member</em><span class="r-date">Sept. 2023 — Present</span></div>
+      <p class="r-sub" style="font-style:normal">Involved in the club centered around Competitive Programming</p>
+
+      <div class="r-row"><strong>Apex Tutoring</strong> · <em>Tutor</em><span class="r-date">2019 — Present</span></div>
+      <p class="r-sub" style="font-style:normal">Routinely tutor K–12 students in math, coding, etc.</p>
+
+      <div class="r-row"><strong>Luigi Team Charity</strong> · <em>Volunteer, Manager</em><span class="r-date">2018 — Present</span></div>
+      <p class="r-sub" style="font-style:normal">Earned an award for philanthropic hours spent, still giving away 100 stocked backpacks a year</p>
+
+      <h3><i class="fas fa-heart"></i> Hobbies</h3>
+      <div class="r-row"><strong>Playing the Drums</strong><span class="r-date">2013 — 2019</span></div>
+      <p class="r-sub" style="font-style:normal">Played the drums in symphonic, jazz, and marching bands</p>
+
+      <div class="r-row"><strong>3rd Place Time Keeping Challenge Championship <small>(Time Keeping Association)</small></strong><span class="r-date">Feb. 2022 — May 2022</span></div>
+      <p class="r-sub" style="font-style:normal">Won $1500 nationally competing against high school students in counting seconds and minutes</p>
+    </div>
+  </div>
+</div>
+
+<!-- ───── Footer ───── -->
 <footer>
-<p>Contact: yourmail@example.com</p>
-<p>GitHub: https://github.com/yourusername</p>
+  <p>&copy; 2026 Pham Phan Duc Khai. Built with <i class="fas fa-heart" style="color:var(--accent)"></i></p>
 </footer>
+
+<script>
+  // ─── Resume Modal ───
+  function openResume() {
+    document.getElementById('resumeModal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeResume() {
+    document.getElementById('resumeModal').classList.remove('active');
+    document.body.style.overflow = '';
+  }
+  function closeResumeOutside(e) {
+    if (e.target === e.currentTarget) closeResume();
+  }
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeResume();
+  });
+
+  // ─── Scroll fade-in ───
+  const observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.15 });
+  document.querySelectorAll('.fade-up').forEach(function(el) {
+    observer.observe(el);
+  });
+</script>
 
 </body>
 </html>
