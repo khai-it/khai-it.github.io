@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Khai Portfolio</title>
+<style>
+body{
+    margin:0;
+    font-family: Arial, Helvetica, sans-serif;
+    background:#0f172a;
+    color:white;
+}
+
+header{
+    text-align:center;
+    padding:60px 20px;
+}
+
+header h1{
+    font-size:48px;
+    margin-bottom:10px;
+}
+
+header p{
+    color:#cbd5f5;
+}
+
+section{
+    max-width:1000px;
+    margin:auto;
+    padding:40px 20px;
+}
+
+h2{
+    border-bottom:2px solid #334155;
+    padding-bottom:10px;
+}
+
+.skills{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+}
+
+.skill{
+    background:#1e293b;
+    padding:10px 16px;
+    border-radius:20px;
+}
+
+.projects{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:20px;
+}
+
+.card{
+    background:#1e293b;
+    padding:20px;
+    border-radius:12px;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+    background:#334155;
+}
+
+.card h3{
+    margin-top:0;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+}
+
+button{
+    margin-top:10px;
+    padding:10px 16px;
+    border:none;
+    border-radius:6px;
+    background:#3b82f6;
+    color:white;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#2563eb;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>Pham Khai</h1>
+<p>Computer Vision | React | Node.js Developer</p>
+<p>Software Engineering Student - Saigon University</p>
+</header>
+
+<section>
+<h2>About Me</h2>
+<p>
+I am a software engineering student interested in Artificial Intelligence, Computer Vision and Web Development. 
+Currently building a garbage recognition system using computer vision with a React frontend and Node.js backend.
+</p>
+</section>
+
+<section>
+<h2>Tech Stack</h2>
+<div class="skills">
+<div class="skill">C++</div>
+<div class="skill">JavaScript</div>
+<div class="skill">Python</div>
+<div class="skill">React</div>
+<div class="skill">Node.js</div>
+<div class="skill">Computer Vision</div>
+<div class="skill">Git</div>
+</div>
+</section>
+
+<section>
+<h2>Projects</h2>
+<div class="projects">
+
+<div class="card">
+<h3>Garbage Classification System</h3>
+<p>Computer vision system that detects and classifies garbage images.</p>
+<p>Frontend: React | Backend: Node.js</p>
+<button onclick="window.open('https://github.com/yourusername/project')">GitHub</button>
+</div>
+
+<div class="card">
+<h3>Segment Tree Algorithms</h3>
+<p>Implementation of advanced segment tree with lazy propagation in C++.</p>
+<button onclick="window.open('https://github.com/yourusername/segment-tree')">GitHub</button>
+</div>
+
+<div class="card">
+<h3>FP-Growth Data Mining</h3>
+<p>Frequent pattern mining algorithm implemented in C++.</p>
+<button onclick="window.open('https://github.com/yourusername/fpgrowth')">GitHub</button>
+</div>
+
+</div>
+</section>
+
+<section>
+<h2>Basic Test Cases (Garbage Recognition)</h2>
+<ul>
+<li>Plastic bottle image → classified as Plastic</li>
+<li>Banana peel image → classified as Organic Waste</li>
+<li>Metal can image → classified as Metal</li>
+<li>Unknown object → return Unknown</li>
+</ul>
+</section>
+
+<footer>
+<p>Contact: yourmail@example.com</p>
+<p>GitHub: https://github.com/yourusername</p>
+</footer>
+
+</body>
+</html>
